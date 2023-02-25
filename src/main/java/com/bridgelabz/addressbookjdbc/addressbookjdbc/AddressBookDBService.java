@@ -1,5 +1,6 @@
 package com.bridgelabz.addressbookjdbc.addressbookjdbc;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 public class AddressBookDBService {
@@ -30,7 +31,7 @@ public class AddressBookDBService {
 
     public List<AddressBookData> readData() throws AddressBookException {
         String query = null;
-        query = "select * from addressbook";
+        query = "select * from addressBook";
         return getAddressBookDataUsingDB(query);
     }
 
@@ -48,7 +49,7 @@ public class AddressBookDBService {
     private void prepareAddressBookStatement() throws AddressBookException {
         try {
             Connection connection = this.getConnection();
-            String query = "select * from addressbook where First_Name = ?";
+            String query = "select * from addressBook where First_Name = ?";
             addressBookPreparedStatement = connection.prepareStatement(query);
         } catch (SQLException e) {
             throw new AddressBookException(e.getMessage(), AddressBookException.ExceptionType.DATABASE_EXCEPTION);
@@ -97,6 +98,10 @@ public class AddressBookDBService {
         }
         System.out.println(addressBookData);
         return addressBookData;
+    }
+
+    public List<AddressBookData> readData(LocalDate startLocalDate, LocalDate endLocalDate) {
+        return addressBookDBService.readData(startLocalDate, endLocalDate);
     }
 
 }

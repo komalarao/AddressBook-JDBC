@@ -1,4 +1,5 @@
 package com.bridgelabz.addressbookjdbc.addressbookjdbc;
+import java.time.LocalDate;
 import java.util.List;
 public class AddressBookServices {
 	public enum IOService {
@@ -41,5 +42,14 @@ public class AddressBookServices {
     private AddressBookData getAddressBookData(String firstname) {
         return this.addressBookList.stream().filter(addressBookItem -> addressBookItem.firstName.equals(firstname))
                 .findFirst().orElse(null);
+    }
+
+    public List<AddressBookData> readAddressBookData(IOService ioService, String start, String end)
+            throws AddressBookException {
+        LocalDate startLocalDate = LocalDate.parse(start);
+        LocalDate endLocalDate = LocalDate.parse(end);
+        if (ioService.equals(IOService.DB_IO))
+            return addressBookDBService.readData(startLocalDate, endLocalDate);
+        return this.addressBookList;
     }
 }
