@@ -1,8 +1,6 @@
 package com.bridgelabz.addressbookjdbc.addressbookjdbc;
 import java.util.List;
-
 import org.junit.*;
-
 import junit.framework.Assert;
 public class AddressBookTest {
 	static AddressBookServices addressBookService;
@@ -30,5 +28,10 @@ public class AddressBookTest {
         List<AddressBookData> addressBookData = addressBookService.readAddressBookData(AddressBookServices.IOService.DB_IO, "2018-02-14",
                 "2020-06-02");
         org.junit.Assert.assertEquals(3, addressBookData.size());
+    }
+
+    @Test
+    public void givenAddresBook_WhenRetrieved_ShouldReturnCountOfCity() throws AddressBookException {
+        org.junit.Assert.assertEquals(1, addressBookService.readAddressBookData("Maharashtra", "Mumbai"));
     }
 }

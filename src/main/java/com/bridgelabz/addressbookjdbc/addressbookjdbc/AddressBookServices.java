@@ -9,7 +9,7 @@ public class AddressBookServices {
     private List<AddressBookData> addressBookList;
     private static AddressBookDBService addressBookDBService;
 
-    public AddressBookServices() {
+    public AddressBookService() {
         addressBookDBService = AddressBookDBService.getInstance();
     }
 
@@ -52,4 +52,9 @@ public class AddressBookServices {
             return addressBookDBService.readData(startLocalDate, endLocalDate);
         return this.addressBookList;
     }
+
+    public int readAddressBookData(String function, String city) throws AddressBookException {
+        return addressBookDBService.readDataBasedOnCity(function, city);
+    }
+
 }
